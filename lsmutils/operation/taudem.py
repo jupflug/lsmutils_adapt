@@ -73,7 +73,8 @@ class StreamDefinitionByThresholdOp(Operation):
     output_types = [OutputType('stream-raster', 'tif')]
 
     def run(self, source_area_ds):
-        threshold = np.percentile(source_area_ds.array, 98)
+#        threshold = np.percentile(source_area_ds.array, 98)
+        threshold = np.max(source_area_ds.array)
         subprocess.call(['threshold',
                          '-ssa', source_area_ds.loc.path,
                          '-thresh', '{:.1f}'.format(threshold),
@@ -196,7 +197,7 @@ class PeukerDouglasStreamDefinitionOp(Operation):
 
         ## Next perform the drop analysis
         # This selects a sensible flow accumulation threshold value
-        thresh_min = np.percentile(source_area_ds.array, 95)
+        thresh_min = np.percentile(source_area_ds.array, 70)
         thresh_max = np.max(source_area_ds.array)
 
         subprocess.call(['dropanalysis',
