@@ -73,8 +73,8 @@ class StreamDefinitionByThresholdOp(Operation):
     output_types = [OutputType('stream-raster', 'tif')]
 
     def run(self, source_area_ds):
-#        threshold = np.percentile(source_area_ds.array, 98)
-        threshold = np.max(source_area_ds.array)
+        threshold = np.percentile(source_area_ds.array, 98)
+#        threshold = np.max(source_area_ds.array)
         subprocess.call(['threshold',
                          '-ssa', source_area_ds.loc.path,
                          '-thresh', '{:.1f}'.format(threshold),
